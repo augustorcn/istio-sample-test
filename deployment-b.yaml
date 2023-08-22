@@ -1,8 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-b
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -10,10 +11,11 @@ spec:
     metadata:
       labels:
         app: nginx
+        version: B
     spec:
       containers:
         - name: nginx
-          image: nginx
+          image: augustorcn/nginx:b
           resources:
             limits:
               memory: "128Mi"

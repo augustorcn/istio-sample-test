@@ -1,11 +1,30 @@
 # Intro
 
+Content from Full Cycle course on Istio Service Mash module.
 Sample teste with istio using k3d to know how it works.
 
 ## Important links
 
 - [k3d](https://k3d.io/)
 - [Istio](https://istio.io/)
+
+## Create k8s cluster
+
+```sh
+k3d cluster create -p "8000:30000@loadbalancer" --agents 2
+```
+
+## Install Istio on cluster
+
+```sh
+istioctl install -y
+```
+
+## Run k8s manifests
+
+```sh
+kubectl apply -f .
+```
 
 ## Istio dashboard addons: Grafana, Jaeger, Kiali and Phometheus
 

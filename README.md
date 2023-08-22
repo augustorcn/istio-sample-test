@@ -20,6 +20,12 @@ k3d cluster create -p "8000:30000@loadbalancer" --agents 2
 istioctl install -y
 ```
 
+## Add istio-injection label to add sidecar proxy to pod
+
+```sh
+kubectl label namespace default istio-injection=enabled
+```
+
 ## Run k8s manifests
 
 ```sh
@@ -66,3 +72,5 @@ do
     sleep 0.5
 done
 ```
+
+![Alt text](image.png)

@@ -61,16 +61,22 @@ istioctl dashboard kiali
 istioctl dashboard prometheus
 ```
 
-## Testing A and B deployments with load balance
+## Testing A and B deployments with fortio
 
-### Run this script and access Kiali dashboard
+### Add, configure and run fortio
 
 ```sh
-while true
-do      
-    curl http://localhost:8000
-    sleep 0.5
-done
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.18/samples/httpbin/sample-client/fortio-deploy.yaml
 ```
 
-![Alt text](image.png)
+```sh
+export FORTIO_POD=$(kubectl get pods -l app=fortio -o 'jsonpath={.items[0].metadata.name}')
+```
+
+```sh
+kubectl exec "$FORTIO_POD" -c fortio -- fortio load -c 2 -qps 0 -t 200s -loglevel Warning http://nginx-service:8000
+```
+
+## Run Kiali and see traffic graph
+
+![Alt text](docs/image.png)
